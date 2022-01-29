@@ -1,7 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -15,6 +17,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    kapt {
+        correctErrorTypes true
     }
 
     buildTypes {
@@ -46,13 +51,13 @@ dependencies {
 
     // Dagger Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
-    annotationProcessor "com.google.dagger:hilt-compiler:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
     // For instrumentation tests
     androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
-    androidTestAnnotationProcessor "com.google.dagger:hilt-compiler:$hilt_version"
+    kaptAndroidTest  "com.google.dagger:hilt-compiler:$hilt_version"
     // For local unit tests
     testImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
-    testAnnotationProcessor "com.google.dagger:hilt-compiler:$hilt_version"
+    kaptTest  "com.google.dagger:hilt-compiler:$hilt_version"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'

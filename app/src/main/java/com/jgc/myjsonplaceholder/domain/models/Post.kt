@@ -1,8 +1,10 @@
 package com.jgc.myjsonplaceholder.domain.models
 
+import com.jgc.myjsonplaceholder.ui.base.adapter.ListAdapterItem
+
 data class Post(
-    val id: Int,
+    override val id: Long,
     val body: String,
     val title: String,
     val userId: Int
-)
+) : ListAdapterItem

@@ -22,7 +22,7 @@ class ListRepositoryImpl : ListRepository {
 
 fun List<PostItemDto>.toDomainLayer(): List<Post> = map {
     Post(
-        id = it.id,
+        id = it.id.toLong(),
         body = it.body,
         title = it.title,
         userId = it.userId

@@ -1,6 +1,6 @@
-package com.jgc.myjsonplaceholder.data.dto
+package com.jgc.myjsonplaceholder.domain.models
 
-data class PostItemDto(
+data class Post(
     val id: Int,
     val body: String,
     val title: String,

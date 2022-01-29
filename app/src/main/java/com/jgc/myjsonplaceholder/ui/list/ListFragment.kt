@@ -11,14 +11,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ListFragment @Inject constructor(): BaseFragment<ListFragmentViewModel>() {
+class ListFragment @Inject constructor() : BaseFragment<ListFragmentViewModel>() {
 
     private val localViewModel: ListFragmentViewModel by viewModels()
-
-    override fun onResume() {
-        super.onResume()
-        localViewModel.onResume()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -2,19 +2,34 @@ package com.jgc.myjsonplaceholder.ui.list.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.RecyclerView
-import com.jgc.myjsonplaceholder.R
+import com.jgc.myjsonplaceholder.databinding.PostItemBinding
 import com.jgc.myjsonplaceholder.domain.models.Post
 
-class PostsDataAdapter(
-    private var dataSet: List<Post> = emptyList(),
+class PostAdapter(
     itemClickListener: OnItemClickListener,
-) : RecyclerView.Adapter<PostsDataAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
+    private var dataSet: List<Post> = emptyList()
     private val listener: OnItemClickListener = itemClickListener
+
+    class ViewHolder(val binding: PostItemBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(PostItemBinding.inflate(LayoutInflater.from(parent.context),
+            parent,
+            false)
+        )
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.binding.setVariable(BR.post, dataSet[position])
+        holder.binding.setVariable(BR.listener, listener)
+    }
+
+    override fun getItemCount(): Int = dataSet.size
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(list: List<Post>) {
@@ -22,39 +37,9 @@ class PostsDataAdapter(
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int,
-    ): ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.post_item, parent, false)
-
-        return ViewHolder(view)
-    }
-
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvTitle: TextView = view.findViewById(R.id.tvTitle)
-        val tvBody: TextView = view.findViewById(R.id.tvBody)
-    }
-
     interface OnItemClickListener {
         fun onItemDetailsClick(
             post: Post,
         )
-    }
-
-    override fun getItemCount(): Int = dataSet.size
-
-    override fun onBindViewHolder(
-        holder: PostsDataAdapter.ViewHolder,
-        position: Int,
-    ) {
-        with(holder) {
-            tvTitle.text = dataSet[position].title
-            tvBody.text = dataSet[position].body
-            itemView.setOnClickListener { listener.onItemDetailsClick(dataSet[position]) }
-        }
-
     }
 }

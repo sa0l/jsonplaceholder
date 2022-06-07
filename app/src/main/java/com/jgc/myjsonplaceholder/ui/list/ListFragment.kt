@@ -11,13 +11,13 @@ import com.jgc.myjsonplaceholder.R
 import com.jgc.myjsonplaceholder.databinding.FragmentListBinding
 import com.jgc.myjsonplaceholder.domain.models.Post
 import com.jgc.myjsonplaceholder.ui.base.BaseFragment
-import com.jgc.myjsonplaceholder.ui.list.adapter.PostsDataAdapter
+import com.jgc.myjsonplaceholder.ui.list.adapter.PostAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ListFragment @Inject constructor() : BaseFragment<ListFragmentViewModel>(),
-    PostsDataAdapter.OnItemClickListener {
+    PostAdapter.OnItemClickListener {
 
     private var binding: FragmentListBinding? = null
     private val localViewModel: ListFragmentViewModel by viewModels()
@@ -36,7 +36,7 @@ class ListFragment @Inject constructor() : BaseFragment<ListFragmentViewModel>()
         return binding?.apply {
             viewModel = localViewModel
             lifecycleOwner = viewLifecycleOwner
-            adapter = PostsDataAdapter(itemClickListener = this@ListFragment)
+            adapter = PostAdapter(itemClickListener = this@ListFragment)
         }?.root
     }
 

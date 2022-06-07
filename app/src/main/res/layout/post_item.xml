@@ -10,7 +10,7 @@
 
         <variable
             name="listener"
-            type="com.jgc.myjsonplaceholder.ui.list.adapter.PostsDataAdapter.OnItemClickListener" />
+            type="com.jgc.myjsonplaceholder.ui.list.adapter.PostAdapter.OnItemClickListener" />
 
     </data>
 

@@ -1,7 +1,7 @@
 package com.jgc.myjsonplaceholder.data.repositories
 
 import com.jgc.myjsonplaceholder.data.dto.PostItemDto
-import com.jgc.myjsonplaceholder.domain.ListRepository
+import com.jgc.myjsonplaceholder.domain.repository.list.ListRepository
 import com.jgc.myjsonplaceholder.domain.models.Post
 
 class ListRepositoryImpl : ListRepository {
@@ -24,7 +24,6 @@ fun List<PostItemDto>.toDomainLayer(): List<Post> = map {
     Post(
         id = it.id.toLong(),
         body = it.body,
-        title = it.title,
-        userId = it.userId
+        title = it.title
     )
 }

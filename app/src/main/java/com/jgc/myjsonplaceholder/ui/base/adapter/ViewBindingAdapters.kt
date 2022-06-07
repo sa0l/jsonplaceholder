@@ -1,28 +1,22 @@
 package com.jgc.myjsonplaceholder.ui.base.adapter
 
 import android.view.View
-import android.widget.ProgressBar
 import androidx.databinding.BindingAdapter
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.jgc.myjsonplaceholder.domain.models.Post
+import com.jgc.myjsonplaceholder.ui.list.adapter.PostsDataAdapter
+import com.jgc.myjsonplaceholder.utils.setVisibleOrGone
 
-fun setAdapter(
-    recyclerView: RecyclerView,
-    adapter: BaseAdapter<ViewDataBinding, ListAdapterItem>?
-) {
-    adapter?.let {
-        recyclerView.adapter = it
-    }
-}
-
-@Suppress("UNCHECKED_CAST")
 @BindingAdapter("submitList")
-fun submitList(recyclerView: RecyclerView, list: List<ListAdapterItem>?) {
-    val adapter = recyclerView.adapter as BaseAdapter<ViewDataBinding, ListAdapterItem>?
-    adapter?.updateData(list ?: listOf())
+fun submitList(recyclerView: RecyclerView, list: List<Post>?) {
+    val adapter = recyclerView.adapter as PostsDataAdapter
+    adapter.updateData(list ?: listOf())
 }
 
-@BindingAdapter("manageState")
-fun manageState(progressBar: ProgressBar, state: Boolean) {
-    progressBar.visibility = if (state) View.VISIBLE else View.GONE
+object ViewBindingAdapters {
+    @JvmStatic
+    @BindingAdapter("app:isVisible")
+    fun isVisible(view: View, isVisible: Boolean) {
+        view setVisibleOrGone isVisible
+    }
 }

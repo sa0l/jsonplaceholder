@@ -11,9 +11,7 @@
 
         <variable
             name="adapter"
-            type="com.jgc.myjsonplaceholder.ui.list.adapter.PostAdapter" />
-
-
+            type="com.jgc.myjsonplaceholder.ui.list.adapter.PostsDataAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

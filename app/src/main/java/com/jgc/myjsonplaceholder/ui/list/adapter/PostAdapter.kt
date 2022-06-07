@@ -1,28 +1,60 @@
 package com.jgc.myjsonplaceholder.ui.list.adapter
 
+import android.annotation.SuppressLint
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.jgc.myjsonplaceholder.R
-import com.jgc.myjsonplaceholder.databinding.PostItemBinding
 import com.jgc.myjsonplaceholder.domain.models.Post
-import com.jgc.myjsonplaceholder.ui.base.adapter.BaseAdapter
 
-class PostAdapter(
-    private val list: List<Post>,
-    private val postListener: PostListener
-) : BaseAdapter<PostItemBinding, Post>(list) {
-    override val layoutId: Int
-        get() = R.layout.post_item
+class PostsDataAdapter(
+    private var dataSet: List<Post> = emptyList(),
+    itemClickListener: OnItemClickListener,
+) : RecyclerView.Adapter<PostsDataAdapter.ViewHolder>() {
 
-    override fun bind(binding: PostItemBinding, item: Post) {
-        binding.apply {
-            post = item
-            listener = postListener
-            executePendingBindings()
-        }
+    private val listener: OnItemClickListener = itemClickListener
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(list: List<Post>) {
+        this.dataSet = list
+        notifyDataSetChanged()
     }
 
-}
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): ViewHolder {
+        val view =
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.post_item, parent, false)
 
-interface PostListener {
-    fun onPostClicked(post: Post)
+        return ViewHolder(view)
+    }
 
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val tvTitle: TextView = view.findViewById(R.id.tvTitle)
+        val tvBody: TextView = view.findViewById(R.id.tvBody)
+    }
+
+    interface OnItemClickListener {
+        fun onItemDetailsClick(
+            post: Post,
+        )
+    }
+
+    override fun getItemCount(): Int = dataSet.size
+
+    override fun onBindViewHolder(
+        holder: PostsDataAdapter.ViewHolder,
+        position: Int,
+    ) {
+        with(holder) {
+            tvTitle.text = dataSet[position].title
+            tvBody.text = dataSet[position].body
+            itemView.setOnClickListener { listener.onItemDetailsClick(dataSet[position]) }
+        }
+
+    }
 }

@@ -9,10 +9,25 @@
         android:id="@+id/listFragment"
         android:name="com.jgc.myjsonplaceholder.ui.list.ListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list">
+        <action
+            android:id="@+id/action_listFragment_to_singleFragment"
+            app:destination="@id/singleFragment">
+            <argument
+                android:name="postId"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/singleFragment"
         android:name="com.jgc.myjsonplaceholder.ui.single.SingleFragment"
         android:label="fragment_single"
-        tools:layout="@layout/fragment_single" />
+        tools:layout="@layout/fragment_single">
+        <argument
+            android:name="postId"
+            app:argType="string"
+            app:nullable="false" />
+
+    </fragment>
 </navigation>

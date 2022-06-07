@@ -1,4 +1,4 @@
-package com.jgc.myjsonplaceholder.domain
+package com.jgc.myjsonplaceholder.domain.repository.list
 
 import com.jgc.myjsonplaceholder.domain.models.Post
 

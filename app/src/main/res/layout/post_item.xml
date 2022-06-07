@@ -10,21 +10,22 @@
 
         <variable
             name="listener"
-            type="com.jgc.myjsonplaceholder.ui.list.adapter.PostListener" />
+            type="com.jgc.myjsonplaceholder.ui.list.adapter.PostsDataAdapter.OnItemClickListener" />
 
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:onClick="@{() -> listener.onPostClicked(post)}"
+        android:layout_margin="5dp"
+        android:onClick="@{() -> listener.onItemDetailsClick(post)}"
         app:cardCornerRadius="4dp"
         app:cardElevation="4dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -46,14 +47,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle" />
-
-            <TextView
-                android:id="@+id/tvUserId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvBody" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

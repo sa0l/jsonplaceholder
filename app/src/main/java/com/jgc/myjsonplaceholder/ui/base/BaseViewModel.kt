@@ -10,11 +10,15 @@ abstract class BaseViewModel : ViewModel() {
     private val _viewState: MutableLiveData<ViewState> = MutableLiveData(ViewState.Loading)
     val viewState: LiveData<ViewState> = _viewState
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
+    fun showLoader() = _isLoading.postValue(true)
+
+    fun hideLoader() = _isLoading.postValue(false)
+
     open fun onResume() {}
-
-    fun showLoading() {}
-
-    fun hideLoading() {}
 
     fun setViewState(newState: ViewState) {
         if (_viewState.value != newState)
@@ -33,12 +37,6 @@ abstract class BaseViewModel : ViewModel() {
         NETWORK_ERROR,
 
         @Keep
-        APP_TOO_OLD,
-
-        @Keep
-        WRONG_SYSTEM_TIME,
-
-        @Keep
-        DATA_PARSING
+        MISSING_POST_ID
     }
 }

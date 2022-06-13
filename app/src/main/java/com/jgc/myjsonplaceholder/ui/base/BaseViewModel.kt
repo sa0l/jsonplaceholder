@@ -29,7 +29,10 @@ abstract class BaseViewModel : ViewModel() {
         object Loading : ViewState()
         object Data : ViewState()
         object NoData : ViewState()
-        class Error(val cause: ViewErrorCause) : ViewState()
+        class Error(
+            val cause: ViewErrorCause = ViewErrorCause.NETWORK_ERROR,
+            val message: String = "",
+        ) : ViewState()
     }
 
     enum class ViewErrorCause {

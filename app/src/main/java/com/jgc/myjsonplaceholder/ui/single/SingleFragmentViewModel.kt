@@ -4,14 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.jgc.myjsonplaceholder.domain.models.Post
-import com.jgc.myjsonplaceholder.domain.usecase.PostUseCase
+import com.jgc.myjsonplaceholder.domain.models.toDomainLayer
+import com.jgc.myjsonplaceholder.network.NetworkErrorCause
+import com.jgc.myjsonplaceholder.network.NetworkingUseCase
+import com.jgc.myjsonplaceholder.network.map
 import com.jgc.myjsonplaceholder.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SingleFragmentViewModel @Inject constructor(
-    private val getSinglePost: PostUseCase.GetSinglePost,
+    private val getSinglePost: NetworkingUseCase.GetSinglePostUseCase,
 ) : BaseViewModel() {
 
     private val _postData: MutableLiveData<Post> = MutableLiveData()
@@ -26,19 +30,20 @@ class SingleFragmentViewModel @Inject constructor(
 
     fun onPostIdReceived(postId: String?) {
         if (postId.isNullOrBlank()) {
-            setViewState(ViewState.Error(ViewErrorCause.MISSING_POST_ID))
+            setViewState(ViewState.Error(ViewErrorCause.MISSING_POST_ID, ""))
             return
         }
-        getSinglePost.execute(
-            postId = postId,
-            scope = viewModelScope,
-            onDataReceived = {
-                _postData.value = it
-                setViewState(ViewState.Data)
-            },
-            onError = {
-                setViewState(ViewState.Error(it))
-            }
-        )
+        viewModelScope.launch {
+            getSinglePost.execute(
+                postId = postId,
+                onDataReceived = {
+                    _postData.value = it.toDomainLayer()
+                    setViewState(ViewState.Data)
+                },
+                onError = { viewErrorCause: NetworkErrorCause, message: String ->
+                    setViewState(ViewState.Error(viewErrorCause.map(), message))
+                }
+            )
+        }
     }
 }

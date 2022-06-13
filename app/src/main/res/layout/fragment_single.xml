@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="com.jgc.myjsonplaceholder.ui.base.BaseViewModel.ViewState" />
+
         <variable
             name="viewModel"
             type="com.jgc.myjsonplaceholder.ui.single.SingleFragmentViewModel" />
@@ -46,6 +48,17 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ERROR"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showOnViewError="@{viewModel.viewState}" />
 
         <include
             layout="@layout/progress_bar_view"
